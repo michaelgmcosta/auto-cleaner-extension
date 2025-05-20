@@ -4,10 +4,10 @@
   "version": "1.0",
   "description": "Clears browsing data every day at the end of the day.",
   "icons": {
-    "16": "webpage16.png",
-    "32": "webpage32.png",
-    "48": "webpage48.png",
-    "128": "webpage128.png"
+    "16": "img/webpage16.png",
+    "32": "img/webpage32.png",
+    "48": "img/webpage48.png",
+    "128": "img/webpage128.png"
   },
   "permissions": [
     "browsingData",
