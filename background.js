@@ -1,8 +1,15 @@
+chrome.runtime.onMessage.addListener((message) => {
+    if (message.action === "updateAlarm") {
+        createAlarmWithStoredPeriod();
+    }
+})
+
 chrome.runtime.onInstalled.addListener(() => {
-    chrome.alarms.create("dailyDataCleaner", {
-        when: getNextMidnightTimestamp(),
-        periodInMinutes: 1440 //24h
-    });
+    createAlarmWithStoredPeriod();
+});
+
+chrome.runtime.onStartup.addListener(() => {
+    createAlarmWithStoredPeriod();
 });
 
 chrome.alarms.onAlarm.addListener((alarm) => {
@@ -10,6 +17,19 @@ chrome.alarms.onAlarm.addListener((alarm) => {
         clearBrowsingData();
     }
 })
+
+function createAlarmWithStoredPeriod() {
+    chrome.storage.sync.get("periodInMinutes", (result) => {
+        const period = result.periodInMinutes || 60;
+        let now = new Date();
+        console.log(`Interval: ${period}. ${now.toLocaleString()}`);
+        chrome.alarms.clear("dailyDataCleaner");
+        chrome.alarms.create("dailyDataCleaner", {
+            delayInMinutes: period,
+            periodInMinutes: period
+        });
+    });
+}
 
 function clearBrowsingData() {
     const dataToRemove = {
@@ -20,16 +40,16 @@ function clearBrowsingData() {
         "history": true,
         "downloads": true,
         "cache": true,
+        "cacheStorage": true,
         "formData": true
     };
 
     chrome.browsingData.remove(dataToRemove, typesToRemove, () => {
-        console.log("Data deleted.");
+        let now = new Date()
+        console.log(`Data deleted. ${now.toLocaleString()}`);
+        chrome.action.setBadgeText({ text: "✓" });
+        setTimeout(() => {
+            chrome.action.setBadgeText({ text: "" });
+        }, 2000);
     })
-}
-
-function getNextMidnightTimestamp() {
-    const now = new Date();
-    now.setHours(23, 59, 0, 0);
-    return now.getTime();
 }

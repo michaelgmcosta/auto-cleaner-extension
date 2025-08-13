@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<head>
+    <title>Interval Configuration</title>
+    <style>
+         body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 15px;
+            background-color: #f5f7fa;
+            width: 220px;
+            color: #333;
+        }
+
+        h1 {
+            font-size: 16px;
+            margin-bottom: 15px;
+            text-align: center;
+            color: #2c3e50;
+        }
+
+        label {
+            font-size: 14px;
+            margin-bottom: 8px;
+            display: block;
+        }
+
+        select {
+            width: 100%;
+            padding: 8px;
+            font-size: 14px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            margin-bottom: 15px;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            font-size: 14px;
+            background-color: #ffd15d;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+        }
+
+        button:hover {
+            
+            background-color: #f5b92d;
+        }
+
+        .status {
+            margin-top: 10px;
+            font-size: 12px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <label for="=interval">Interval:</label>
+    <select id="interval">
+        <option value="1">Every 1 minute</option>
+        <option value="5">Every 5 minutes</option>
+        <option value="10">Every 10 minutes</option>
+        <option value="30">Every 30 minutes</option>
+        <option value="60">Every 1 hour</option>
+    </select>
+    <button id="save">Save</button>
+    <div class="status" id="status"></div>
+    <script src="popup.js"></script>
+</body>
+</html>
